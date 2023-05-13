@@ -11,13 +11,12 @@ interface PreventDefault {
     preventDefault: Event["preventDefault"]
 }
 
-
 export function Nav() {
     const [start, setStart] = useState(true)
     const [explore, setExplore] = useState(false)
     const [profile, setProfile] = useState(false)
 
-    const { value, teste} = useContext(BookwiseContext);
+    const { user, teste} = useContext(BookwiseContext);
 
     function handleNavSelectedStart(e: PreventDefault) {
         e.preventDefault()
@@ -38,12 +37,12 @@ export function Nav() {
         setExplore(false)
         setProfile(true)
 
-        console.log(value)
     }
+
     return (
         <Container>
             <BackgroundImage src={backgroundImage} alt="" />
-            {value.displayName == undefined && teste == 'visitor'?
+            {user[0].displayName == undefined || teste == 'visitor'?
             
                 <NavList>
                     <Logo src={logoImage} alt="" />
@@ -83,8 +82,8 @@ export function Nav() {
                             </SignInUser>
                             :
                             <SignOutUser disabled={true}>
-                                <img referrerPolicy="no-referrer" src={value.photoURL} alt="" />  
-                                <p>{value.displayName}</p>
+                                {user[0].photoURL && <img referrerPolicy="no-referrer" src={user[0].photoURL} alt="" />}
+                                <p>{user[0].displayName}</p>
                                 <SignOut size={22} />
                             </SignOutUser>
                         }               
