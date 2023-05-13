@@ -31,6 +31,10 @@ export const GlobalStyles = createGlobalStyle`
         margin-left: 0.3rem;
     }
 
+    button, textarea {
+        font-family: 'Nunito Sans', sans-serif;
+    }
+
     @media(max-width: 1800px){
         html {
             font-size: 106.25%;
