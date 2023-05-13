@@ -5,7 +5,12 @@ import rocketIconImg from '../../assets/authPage/rocketIcon.svg'
 
 import { Bookwise, Container, Icon, Login, LoginMethods } from "./styles";
 
+import { useContext } from "react";
+import { BookwiseContext } from '../../context/bookwiseContext';
+
 export function AuthPage() {
+    const { handleClickAuthGitHub, handleClickAuthGoogle, handleClickAuthVisitor } = useContext(BookwiseContext);
+        
     return (
         <Container>
             <Bookwise>
@@ -18,17 +23,17 @@ export function AuthPage() {
                 </header>
 
                 <LoginMethods>
-                    <button>
+                    <button onClick={(e) => {handleClickAuthGoogle(e)}}>
                         <Icon src={googleIconImg} alt="" />
                         <p>Entrar com Google</p>
                     </button>
 
-                    <button>
+                    <button onClick={(e) => {handleClickAuthGitHub(e)}}>
                         <Icon src={githubIcoImg} alt="" />
                         <p>Entrar com GitHub</p>
                     </button>
 
-                    <button>
+                    <button onClick={(e) => {handleClickAuthVisitor(e)}}>
                         <Icon src={rocketIconImg} alt="" />
                         <p>Acessar como visitante</p>
                     </button>
