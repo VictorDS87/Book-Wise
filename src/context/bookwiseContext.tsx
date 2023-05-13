@@ -2,14 +2,14 @@ import { auth, providerGoogle, providerGitHub } from "../../config"
 import { signInWithPopup } from "firebase/auth"
 
 import { createContext, ReactNode, useState } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 interface PreventDefault {
     preventDefault: Event["preventDefault"]
 }
 
 interface BookwiseContextType {
-    value: [];
+    user: UserCredential[]
     teste: string
     setTeste: (user: string) => void
     handleClickAuthGoogle: (e: PreventDefault) => void
@@ -21,11 +21,17 @@ interface BookWiseProviderProps {
     children: ReactNode
 }
 
+interface UserCredential {
+    displayName: string | null
+    email: string | null
+    photoURL: string | null
+    id: string | null
+}
 
 export const BookwiseContext = createContext({} as BookwiseContextType);
 
 export function BookwiseProvider({ children }: BookWiseProviderProps) {
-    const [ value, setValue ] = useState<[]>([])
+    const [ user, setUser ] = useState<UserCredential[]>([])
     const [ teste, setTeste ] = useState<string>('')
     
     const navigate = useNavigate();
@@ -33,22 +39,33 @@ export function BookwiseProvider({ children }: BookWiseProviderProps) {
     function handleClickAuthGoogle(e: PreventDefault) {
         e.preventDefault()
         signInWithPopup(auth, providerGoogle).then((data) => {
-            setValue(data.user)
-            localStorage.setItem("email", data.user.email)
+            console.log(data.user)
+            setUser((state) =>[...state, {
+                displayName: data.user.displayName,
+                email: data.user.email,
+                id: data.user.uid,
+                photoURL: data.user.photoURL                
+            }])
+            localStorage.setItem("email", data.user.email ?? "")
         }).then(() => {
             console.log('cheguei')
             navigate("/home");
           })
           .catch((error) => {
-            console.log('error');
+            console.log(error);
           });     
     }
 
     function handleClickAuthGitHub(e: PreventDefault) {
         e.preventDefault()
         signInWithPopup(auth, providerGitHub).then((data) => {
-            setValue(data.user)
-            localStorage.setItem("email", data.user.email)
+            setUser((state) =>[...state, {
+                displayName: data.user.displayName,
+                email: data.user.email,
+                id: data.user.uid,
+                photoURL: data.user.photoURL                
+            }])
+            localStorage.setItem("email", data.user.email ?? "")
         })
     }
 
@@ -58,7 +75,7 @@ export function BookwiseProvider({ children }: BookWiseProviderProps) {
         navigate("/home");
     }
     return (
-        <BookwiseContext.Provider value={{ value, teste, handleClickAuthGitHub, handleClickAuthGoogle, handleClickAuthVisitor, setTeste }}>
+        <BookwiseContext.Provider value={{ user, teste, handleClickAuthGitHub, handleClickAuthGoogle, handleClickAuthVisitor, setTeste }}>
             {children}
         </BookwiseContext.Provider>
     )
