@@ -31,8 +31,12 @@ export const GlobalStyles = createGlobalStyle`
         margin-left: 0.3rem;
     }
 
-    button, textarea {
+    button, textarea, input {
         font-family: 'Nunito Sans', sans-serif;
+    }
+
+    ul {
+        list-style: none;
     }
 
     @media(max-width: 1800px){
