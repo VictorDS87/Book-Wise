@@ -101,7 +101,12 @@ export const Book = styled.div`
     img {
         margin-left: 2rem;
         margin-right: 2rem;
-        flex: 2;
+        margin: 1rem;
+        
+        flex: 1;
+        border-radius: 8px;
+
+        width: 100px;
     }
 
 `
@@ -111,10 +116,14 @@ export const SummaryInfoBook = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    
     flex: 3;
+    margin: 1rem;
+
 `
 
 export const AuthorAndTitle = styled.div`
+
     h1 {
         font-size: 1rem;
         color: rgba(248, 249, 252, 1);
