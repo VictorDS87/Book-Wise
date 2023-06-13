@@ -4,7 +4,7 @@ import styled, { keyframes } from "styled-components";
 
 export const Container = styled.div`
     position: fixed;
-`
+    `
 
 export const BackgroundImage = styled.img`
     box-shadow: 0 1px 10px 0 rgba(42, 40, 121, 0.3);
@@ -13,18 +13,20 @@ export const BackgroundImage = styled.img`
     width: 280px;
     border-radius: 10px;
     z-index: -100;
-`
+    `
 
 export const Logo = styled.img`
     margin-top: 2.5rem;
     margin-bottom: 4rem;
-`
+    `
 
 export const NavList = styled.div`
+    height: 95vh;
     width: 280px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: space-between;
 
     ul {
         margin-left: -2.3rem;
@@ -41,7 +43,7 @@ export const NavList = styled.div`
             margin-top: 1rem;
         }
     }
-`
+    `
 
 export const NavInformations = styled.button`
     height: 25px;
@@ -101,7 +103,8 @@ export const UserProfile = styled.div`
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    margin-top: 210%;
+
+    margin-top: 15rem;
 
     img {
         width: 27px;
